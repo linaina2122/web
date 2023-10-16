@@ -124,7 +124,3 @@ server {
 		# return : 301 /home/index.html/;
 		}
 }
-
-
-
-

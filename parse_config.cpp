@@ -1,31 +1,4 @@
-// #include "webserv.hpp"
-    // std::cout << *it << std::endl;
-        //  count2 = count_location(s[index]);
-        // std::cout << count2 << std::endl;    // std::cout << *it << std::endl;
-        //  count2 = count_location(s[index]);
-        // std::cout << count2 << std::endl;    // std::cout << *it << std::endl;
-        //  count2 = count_location(s[index]);
-        // std::cout << count2 << std::endl;    // std::cout << *it << std::endl;
-        //  count2 = count_location(s[index]);
-        // std::cout << count2 << std::endl;    // std::cout << *it << std::endl;
-        //  count2 = count_location(s[index]);
-        // std::cout << count2 << std::endl;    // std::cout << *it << std::endl;
-        //  count2 = count_location(s[index]);
-        // std::cout << count2 << std::endl;    // std::cout << *it << std::endl;
-        //  count2 = count_location(s[index]);
-        // std::cout << count2 << std::endl;    // std::cout << *it << std::endl;
-        //  count2 = count_location(s[index]);
-        // std::cout << count2 << std::endl;    // std::cout << *it << std::endl;
-        //  count2 = count_location(s[index]);
-        // std::cout << count2 << std::endl;    // std::cout << *it << std::endl;
-        //  count2 = count_location(s[index]);
-        // std::cout << count2 << std::endl;    // std::cout << *it << std::endl;
-        //  count2 = count_location(s[index]);
-        // std::cout << count2 << std::endl;    // std::cout << *it << std::endl;
-        //  count2 = count_location(s[index]);
-        // std::cout << count2 << std::endl;    // std::cout << *it << std::endl;
-        //  count2 = count_location(s[index]);
-        // std::cout << count2 << std::endl;
+#include "webserv.hpp"
 
 // void print(store *s, int count)
 // {
@@ -78,44 +51,19 @@
 //     return (s);
 // }
 
-// store *split(store *v, int count)
-// {
-//     int index;
-//     int i;
-//     index = 0;
-//     while(index < count)
-//     {
-//         i = 0;
-//         std::vector<char>::iterator it = v[index].vec.begin();
-//         while(it < v[index].vec.end())
-//         {
-//             if(*it == '\t' || *it == '}')
-// 			{
-//             	v[index].vec.insert(it ,'\n');
-// 				it = it + 1;
-// 			}
-//             it++;
-//             i++;
-//         }
-//         index++;
-//     }
-//     return(v);
-// }
+int check_brackets(server v)
+{
+    int count = 0;
+    int count2 = 0;
+    std::vector<std::string>::iterator it = v.vec.begin();
+    while(it != v.vec.end())
+    {
+        if(it->find("server") != std::string::npos || it->find("location") != std::string::npos)
+        {
+            if()
+        }
+            return(1);
+        
 
-// int check_brackets(store v)
-// {
-//     int index = 0;
-//     int index2 = 0;
-//     std::vector<char>::iterator it = v.vec.begin();
-//     while(it < v.vec.end())
-//     {
-//         if(*it == '{')
-//             index++;
-//         if(*it == '}')
-//             index2++;
-//         it++;
-//     }
-//     if(index != index2)
-//         return(1);
-//     return(0);
-// }
+    }
+}

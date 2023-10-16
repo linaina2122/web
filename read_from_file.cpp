@@ -65,34 +65,34 @@ int count_location(server v)
 server *location_bloc(server *v, int count)
 {
     int index = 0;
-    std::vector<std::string>::iterator it;
+
     while(index < count)
     {
-        int i = count_location(v[index]);
-        it = v[index].vec.begin();
-        v[index].loc = new std::vector<std::string>[i];
-        std::cout << "HERE\n";
+        int loc_count = count_location(v[index]);
+        std::vector<std::string>loc[loc_count];
+        std::vector<std::string>::iterator it = v[index].vec.begin();
+        int i = 0;
         while(it != v[index].vec.end())
         {
-            if(it->find("location") !=std::string::npos)
+            if(i == loc_count)
+                break;
+            if(it->find("location") != std::string::npos)
             {
-                int j = 0;
-                while(j < i)
+                loc[i].push_back(*it);
+                it++;
+                while(it != v[index].vec.end() && (!(it->find("location") != std::string::npos)))
                 {
-                    while(it->find("}") ==std::string::npos)
-                    {
-                        v[index].loc[j].push_back(*it);
-                        it++;
-                    }
-                    v[index].loc[j].push_back(*it);
+                    loc[i].push_back(*it);
                     it++;
-                    j++;
                 }
+                v[index].vectorOfloc.push_back(loc[i]);
+                i++;
             }
-            it++;
+            else
+             it++;
         }
         index++;
     }
-    return(v);
+        return(v);
 }
 
