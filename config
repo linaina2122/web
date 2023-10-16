@@ -1,0 +1,5 @@
+server {
+    listen : 80;//(check if there is a number and it's not zero and not more than 65535)
+    server_name : www.exemple.com //(check if ther is something else than alpphabet)
+
+}
