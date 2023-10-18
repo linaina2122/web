@@ -10,27 +10,23 @@ int main(int argc, char **argv)
     str = read_from_file(argv[1]);
     count = num_of_server(str);
     s = fill_vect(str);
-    std::vector<std::vector< std::string> >::iterator it;
-    s = location_bloc(s, count);
+    s = pars_config(s, count);
+    // std::cout << "here\n";
 
-    // while(index < count)
-    // {
-    //     it = s[index].vectorOfloc.begin();
-    //     while(it != s[index].vectorOfloc.end())
-    //     {
-    //         std::vector< std::string>::iterator itt;
-    //         itt = it->begin();
-    //         while(itt != it->end())
-    //         {
-    //             std::cout << *itt << std::endl;
-    //             itt++;
-    //         }
-    //         it++;
-    //     }
-    // index++;
-    // }
+    // std::vector<std::vector< std::string> >::iterator it;
+    // s = location_bloc(s, count);
+    std::cout << count << std::endl;
+    while(index < count)
+    {
+        std::vector< std::string>::iterator it = s[index].vec.begin();
+        while(it != s[index].vec.end())
+        {
+            // std::cout << *it << std::endl;
+            it++;
+        }
+    index++;
+    }
     delete[]s;
-    // s = pars_config(s, count);
     // s =  split(fill_vect(str), count);
     // count_location(s, count);
     // location(s, count);

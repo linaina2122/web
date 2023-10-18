@@ -13,11 +13,10 @@ std::vector<std::string> read_from_file(const char *argv)
 int num_of_server(std::vector<std::string> str)
 {
     int index = 0;
-    std::string find = "server {";
     std::vector<std::string>::iterator it = str.begin();
     while(it != str.end())
     {
-        if(*it == find)
+        if(it->find("Server") != std::string::npos)
             index++;
         it++;
     }
@@ -29,16 +28,15 @@ server *fill_vect(std::vector<std::string>str)
     int index = 0;
     int count = num_of_server(str);
     server *v = new server[count];
-    std::string s = "server {";
     std::vector<std::string>::iterator it = str.begin();
     while(index < count)
     {
-        if(it != str.end() && *it == s)
+        if(it != str.end() && it->find("Server") != std::string::npos)
         {
             v[index].vec.push_back(*it);
             it++;
         }
-        while(it != str.end() && *it != s)
+        while(it != str.end() && !(it->find("Server") != std::string::npos))
         {
             v[index].vec.push_back(*it);
             it++;
