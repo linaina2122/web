@@ -1,19 +1,7 @@
 #include "webserv.hpp"
 
-// void print(store *s, int count)
-// {
-//     int index = 0;
-//     while(index < count)
-//     {
-//         std::vector<char>::iterator it = s[index].vec.begin();
-//         while(it < s[index].vec.end())
-//         {
-//             std::cout << *it;
-//             it++;
-//         }
-//         index++;
-//     }
-// }
+int ft_check(server s);
+int check_tab(server s);
 server *pars_config(server* s, int count)
 {
     int index = 0;
@@ -24,27 +12,18 @@ server *pars_config(server* s, int count)
             std::cout << "error brackets\n";
             exit(0);
         }
-        // while(it != s[index].vec.end())
-        // {
-		// 	if(*it == '{' && *(it - 1) != ' ')
-		// 	{
-		// 		std::cout << "error parsing\n";
-		// 		exit(0);
-		// 	}
-		// 	if(*it == ':' && (*(it + 1) != ' ' || *(it - 1) != ' '))
-		// 	{
-		// 		std::cout << "error parsing\n";
-		// 		exit(0);
-		// 	}
-		// 	if(*it == ';' && *(it + 1) == '}')
-		// 		it++;
-        //     else if((*it == ';' && *(it + 1) != '\t') || ((*it == '{' && *(it + 1) != '\t')))
-        //     {
-        //         std::cout << "error parsing\n";
-        //         exit(0);
-        //     }
-        //     it++;
-        // }
+        if(ft_check(s[index]))
+         {
+            std::cout << "error parsing\n";
+            exit(0);
+        }
+        if(check_tab(s[index]))
+        {
+             {
+            std::cout << "error tab\n";
+            exit(0);
+        }
+        }
         index++;
     }
     return (s);
@@ -88,6 +67,8 @@ int check_brackets(server v)
     std::vector<std::string>::iterator it = v.vec.begin();
     while(it != v.vec.end())
     {
+        if(it->find("{}") != std::string::npos)
+            return(1);
         if(it->find("Server") != std::string::npos)
         {
 
@@ -124,25 +105,48 @@ int check_brackets(server v)
     return(0);
 }
 
-// int ft_check(std::string s)
-// {
-//     int  i = 0;
-//     while(s[i])
-//     {
-//         if(s[i] == ';')
-//         {
-//             i++;
-//         if(s[i] == '\n')
-//             return(1);
-//     }
-// }
-int check_new_line(server v)
+int ft_check(server s)
 {
-    std::vector<std::string>::iterator it = v.vec.begin();
-    while(it != v.vec.end())
+    std::vector<std::string>::iterator it = s.vec.begin();
+    while(it != s.vec.end())
     {
-        if(!(it->find(";") !=  std::string::npos))
+        if(it->find('{') != (it->length() - 1) && it->find('}') != (it->length() - 1) && it->find(';') != (it->length() - 1))
             return(1);
-        
+        it++;
     }
+    return(0);
 }
+
+int check_tab(server s)
+{
+    std::vector<std::string>::iterator it = s.vec.begin();
+    while(it != s.vec.end() && it + 1 != s.vec.end())
+    {
+		if(it->find("Server") != std::string::npos)
+		{
+        	it++;
+			while(!(it->find("location") != std::string::npos))
+			{
+				if(it->at(0) != '\t')
+				{
+					std::cout << *(it - 1) << std::endl;
+					return(1);
+				}
+				it++;
+			}
+		}
+		
+		if((it->find("location") != std::string::npos) || it->find("}") != std::string::npos)
+		{
+			if(it->at(0) != '\t')
+                return(1);
+		}
+		else if(it->at(0) != '\t' || it->at(1) != '\t')
+                return(1);
+		it++;
+	}
+    if(*it != "}")
+        return(1);
+    return(0);
+}
+

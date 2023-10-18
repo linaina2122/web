@@ -1,6 +1,5 @@
 Name = webserv
-CPPFlags = -Wall -Wextra -Werror -std=c++98 
-# -fsanitize=address
+CPPFlags = -Wall -Wextra -Werror -std=c++98 -fsanitize=address
 Srcs = main.cpp \
 	   parse_config.cpp \
 	   read_from_file.cpp

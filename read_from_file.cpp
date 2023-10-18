@@ -60,6 +60,25 @@ int count_location(server v)
 	return(count);
 }
 
+server *set_bloc(server *v, int count)
+{
+    int index = 0;
+    while(index < count)
+    {
+        std::vector<std::string>::iterator it = v[index].vec.begin();
+        if(it->find("Server") != std::string::npos)
+        {
+            it++;
+            while(!(it->find("location") != std::string::npos))
+            {
+                v[index].setvec.push_back(*it);
+                it++;
+            }
+        }
+        index++;
+    }
+    return(v);
+}
 server *location_bloc(server *v, int count)
 {
     int index = 0;

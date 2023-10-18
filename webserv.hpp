@@ -10,17 +10,17 @@
 class server{
     public:
     std::vector<std::string>vec;
-    int loc_count;
+    std::vector<std::string>setvec;
     std::vector<std::vector<std::string> > vectorOfloc;
 };
 
 std::vector<std::string> read_from_file(const char *argv);
 int num_of_server(std::vector<std::string> str);
 server *pars_config(server *s, int count);
-//  store *split(store *v, int count);
 server *fill_vect(std::vector<std::string>str);
-// server *pars(store *s, int count);
 int check_brackets(server v);
+server *set_bloc(server *v, int count);
 int count_location(server v);
 server *location_bloc(server *v, int count);
+int check_new_line(server v);
 #endif
