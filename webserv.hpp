@@ -12,7 +12,12 @@ class server{
     std::vector<std::string>vec;
     std::vector<std::string>setvec;
     std::vector<std::vector<std::string> > vectorOfloc;
+
+    
+    std::multimap<std::string, std::string> get_directives(std::vector<std::string>setvec);
+
 };
+
 
 std::vector<std::string> read_from_file(const char *argv);
 int num_of_server(std::vector<std::string> str);

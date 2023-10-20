@@ -10,9 +10,10 @@ int main(int argc, char **argv)
     str = read_from_file(argv[1]);
     count = num_of_server(str);
     s = fill_vect(str);
-    s = pars_config(s, count);
+    // s = pars_config(s, count);
     s = location_bloc(s, count);
     s = set_bloc(s, count);
+        s[index].get_directives(s[index].setvec);
     while(index < count)
     {
         std::vector< std::string>::iterator it = s[index].setvec.begin();
@@ -28,12 +29,12 @@ int main(int argc, char **argv)
             std::vector< std::string>::iterator it = itt->begin();
             while(it != itt->end())
             {
-                std::cout << *it << std::endl;
+                // std::cout << *it << std::endl;
                 it++;
             }
             itt++;
         }
-        std::cout << "*****************************\n";
+        // std::cout << "*****************************\n";
     index++;
     }
     delete[]s;

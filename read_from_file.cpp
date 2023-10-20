@@ -69,7 +69,7 @@ server *set_bloc(server *v, int count)
         if(it->find("Server") != std::string::npos)
         {
             it++;
-            while(!(it->find("location") != std::string::npos))
+            while(it != v[index].vec.end() && (!(it->find("location") != std::string::npos)))
             {
                 v[index].setvec.push_back(*it);
                 it++;
@@ -112,4 +112,5 @@ server *location_bloc(server *v, int count)
     }
         return(v);
 }
+
 

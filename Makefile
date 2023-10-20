@@ -2,7 +2,9 @@ Name = webserv
 CPPFlags = -Wall -Wextra -Werror -std=c++98 -fsanitize=address
 Srcs = main.cpp \
 	   parse_config.cpp \
-	   read_from_file.cpp
+	   read_from_file.cpp \
+	   get_directives.cpp \
+	   check_directives.cpp
 Objcs = $(Srcs:.cpp=.o)
 Clean = rm -rf
 All : $(Name)
@@ -13,5 +15,3 @@ clean :
 fclean : 
 		$(Clean) $(Objcs) $(Name)
 re : fclean All 
-
-
