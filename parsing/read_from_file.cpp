@@ -79,6 +79,26 @@ server *set_bloc(server *v, int count)
     }
     return(v);
 }
+
+std::multimap<std::string, std::string> get(std::vector<std::string>vec)
+{
+    std::multimap<std::string, std::string> s;
+    std::string tmp1;
+    std::string tmp2;
+    std::vector<std::string>::iterator it = vec.begin();
+    while(it != vec.end())
+    {
+        if(it->find(":") != std::string::npos)
+        {
+            int i = it->find(":");
+            tmp1 = skip_tab(it->substr(0, i - 1));
+            tmp2 = skip_tab(it->substr(i + 1));
+            s.insert(std::pair<std::string , std::string>(tmp1, tmp2));
+        }
+        it++;
+    }
+    return(s);
+}
 server *location_bloc(server *v, int count)
 {
     int index = 0;
@@ -87,6 +107,7 @@ server *location_bloc(server *v, int count)
     {
         int loc_count = count_location(v[index]);
         std::vector<std::string>loc[loc_count];
+        std::multimap<std::string, std::string>l;
         std::vector<std::string>::iterator it = v[index].vec.begin();
         int i = 0;
         while(it != v[index].vec.end())
@@ -102,7 +123,8 @@ server *location_bloc(server *v, int count)
                     loc[i].push_back(*it);
                     it++;
                 }
-                v[index].vectorOfloc.push_back(loc[i]);
+                l = get(loc[i]);
+                v[index].vectorOfloc.push_back(l);
                 i++;
             }
             else
@@ -110,7 +132,7 @@ server *location_bloc(server *v, int count)
         }
         index++;
     }
-        return(v);
+    return(v);
 }
 
 

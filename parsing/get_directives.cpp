@@ -34,3 +34,22 @@ std::multimap<std::string, std::string> server::get_directives(std::vector<std::
     return(s);
 }
 
+server* fill_default(server *s, int count)
+{
+    int index = 0;
+     while(index < count)
+    {
+      s[index].s_content = s[index].get_directives(s[index].setvec);
+        // std::multimap<std::string, std::string>::iterator it =  s[index].s_content.begin();
+        // while(it !=  s[index].s_content.end())
+        // {
+        //     std::cout << it->first << std::endl;
+        //     std::cout << it->second << std::endl; 
+        //     it++;
+
+        // }
+        index++;
+    }
+    return (s);
+}
+
