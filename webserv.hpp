@@ -16,6 +16,11 @@ class server{
     std::vector<std::multimap<std::string, std::string> > vectorOfloc; // location
     std::multimap<std::string, std::string>s_content; // stactic content
     std::multimap<std::string, std::string> get_directives(std::vector<std::string>setvec);
+
+    int get(std::multimap<std::string, std::string>s_content , std::string s); 
+    std::string ft_get(std::multimap<std::string, std::string>s_content, std::string s);
+    std::string get_loc_dir(std::vector<std::multimap<std::string, std::string> > vectorOfloc, std::string pattern, std::string s);
+
 };
 
 std::vector<std::string> read_from_file(const char *argv);

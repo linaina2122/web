@@ -1,4 +1,4 @@
-#include "webserv.hpp"
+#include "../webserv.hpp"
 
 std::string skip_tab(std::string str)
 {

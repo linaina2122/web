@@ -1,4 +1,4 @@
-#include "webserv.hpp"
+#include "../webserv.hpp"
 
 int check_digit(std::string str) 
 {

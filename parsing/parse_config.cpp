@@ -1,7 +1,8 @@
-#include "webserv.hpp"
+#include "../webserv.hpp"
 
 int ft_check(server s);
 int check_tab(server s);
+int check_space(server s);
 server *pars_config(server *s, int count)
 {
     int index = 0;
@@ -19,10 +20,13 @@ server *pars_config(server *s, int count)
         }
         if (check_tab(s[index]))
         {
-            {
-                std::cout << "error tab\n";
-                exit(0);
-            }
+            std::cout << "error tab\n";
+            exit(0);
+        }
+        if(check_space(s[index]))
+        {
+            std::cout << "error space\n";
+            exit(0);
         }
         index++;
     }
@@ -128,10 +132,7 @@ int check_tab(server s)
             while (!(it->find("location") != std::string::npos))
             {
                 if (it->at(0) != '\t')
-                {
-                    std::cout << *(it - 1) << std::endl;
                     return (1);
-                }
                 it++;
             }
         }
@@ -150,38 +151,36 @@ int check_tab(server s)
     return (0);
 }
 
+int check_space(server s)
+{
+    std::vector<std::string>::iterator it = s.vec.begin();
+    while (it != s.vec.end() && it + 1 != s.vec.end())
+    {
+        if (it->find(":") != std::string::npos)
+        {
+            int i = it->find(":");
+            if(it->at(i - 1) != ' ' || it->at(i + 1) != ' ')
+                return(1);
+        }
+        it++;
+    }
+    return(0);
+}
+
 server *parsing_functions(server *s, int count)
 {
-    //  s = pars_config(s, count);
+    s = pars_config(s, count);
     s = location_bloc(s, count);
 
-    // int index = 0;
-    // while (index < count)
-    // {
-    //     std::vector<std::multimap<std::string, std::string> >::iterator it = s[index].vectorOfloc.begin();
-    //     while (it != s[index].vectorOfloc.end())
-    //     {
-    //         std::multimap<std::string, std::string>::iterator itt = it->begin();
-    //         while (itt != it->end())
-    //         {
-    //             std::cout << itt->first << " : " << itt->second << std::endl;
-    //             itt++;
-    //         }
-    //         it++;
-    //     }
-    //     count++
-    // }
+    int index = 0;
     s = set_bloc(s, count);
     s = fill_default(s, count);
-    // while(index < count)
-    // {
-    //     std::multimap<std::string,std::string>::iterator it = s[index].s_content.begin();
-    //     while(it != s[index].s_content.end())
-    //     {
-    //         std::cout << it->first << ":" << it->second << std::endl;
-    //         it++;
-    //     }
-    //     index++;
-    // }
+    while (index < count)
+    {
+        std::cout <<  s[index].get(s[index].s_content, "client_max_body_size") << std::endl;
+        std::cout <<  s[index].ft_get(s[index].s_content, "host") << std::endl;
+        std::cout << s[index].get_loc_dir(s[index].vectorOfloc, "/.mp4", "i_pattern") << std::endl;
+        index++;
+    }
     return (s);
 }
