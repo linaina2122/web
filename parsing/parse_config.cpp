@@ -169,18 +169,18 @@ int check_space(server s)
 
 server *parsing_functions(server *s, int count)
 {
-    s = pars_config(s, count);
+    // s = pars_config(s, count);
     s = location_bloc(s, count);
 
-    int index = 0;
+    // int index = 0;
     s = set_bloc(s, count);
     s = fill_default(s, count);
-    while (index < count)
-    {
-        std::cout <<  s[index].get(s[index].s_content, "client_max_body_size") << std::endl;
-        std::cout <<  s[index].ft_get(s[index].s_content, "host") << std::endl;
-        std::cout << s[index].get_loc_dir(s[index].vectorOfloc, "/.mp4", "i_pattern") << std::endl;
-        index++;
-    }
+    // while (index < count)
+    // {
+    //     std::cout <<  s[index].get(s[index].s_content, "client_max_body_size") << std::endl;
+    //     std::cout <<  s[index].ft_get(s[index].s_content, "host") << std::endl;
+    //     std::cout << s[index].get_loc_dir(s[index].vectorOfloc, "/.mp4", "i_pattern") << std::endl;
+    //     index++;
+    // }
     return (s);
 }

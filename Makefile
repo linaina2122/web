@@ -1,12 +1,14 @@
 Name = webserv
-CPPFlags = -Wall -Wextra -Werror -std=c++98 -fsanitize=address
+CPPFlags = -Wall -Wextra -Werror -std=c++98
+#  -fsanitize=address
 Srcs = main.cpp \
 	   parsing/parse_config.cpp \
 	   parsing/read_from_file.cpp \
 	   parsing/get_directives.cpp \
 	   parsing/check_directives.cpp \
 	   parsing/get_server.cpp \
-	   parsing/get_location.cpp
+	   parsing/get_location.cpp \
+	   multiplexer/server.cpp
 Objcs = $(Srcs:.cpp=.o)
 Clean = rm -rf
 All : $(Name)

@@ -10,5 +10,10 @@ int main(int argc, char **argv)
     s = fill_vect(str);
     s = parsing_functions(s, count);
     check_directives(s, count);
-    delete[]s;   
+    check_dup(s, count);
+    std::cout << "here\n";
+    // socket_init(s, count);
+   select_init(s, count);
+// client(s);
+    delete[]s;
 }

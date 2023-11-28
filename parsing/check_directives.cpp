@@ -119,14 +119,14 @@ void check_directives(server *s, int count)
             if(check_dup(s[index].s_content))
             {
                 std::cout << "dup in server" << index << std::endl;
-                exit(0);
+                exit(EXIT_FAILURE);
             }
             if(it->first == "host")
             {
                 if(check_host_directive(it->second))
                 {
                     std::cout << "host of server " << index << "is not valid\n ";
-                    exit(0);
+                    exit(EXIT_FAILURE);
                 }
             }
             if(it->first == "listen")
@@ -134,7 +134,7 @@ void check_directives(server *s, int count)
                 if(check_listen_directive(it->second))
                 {
                     std::cout << "port of server " << index << " is not valid\n";
-                    exit(0);
+                    exit(EXIT_FAILURE);
                 }
             }
             if(it->first == "server_name")
@@ -142,7 +142,7 @@ void check_directives(server *s, int count)
                 if(check_server_name_directive(it->second))
                 {
                     std::cout << "server_name of server " << index << "is not valid\n";
-                    exit(0);
+                    exit(EXIT_FAILURE);
                 }
             }
             if(it->first == "root")
@@ -150,7 +150,7 @@ void check_directives(server *s, int count)
                 if(check_root(it->second))
                 {
                     std::cout << "directory of server "<< index << "is not found\n";
-                    exit(0);
+                    exit(EXIT_FAILURE);
                 }
             }
             if(it->first == "client_max_body_size")
@@ -158,12 +158,42 @@ void check_directives(server *s, int count)
                 if(check_digiit(it->second))
                 {
                     std::cout << "error body size of server " << index << std::endl;
-                    exit(0);
+                    exit(EXIT_FAILURE);
                 }
             }
             it++;
         }
         index++;
+    }
+}
+
+void check_dup(server *s, int count)
+{
+    int i = 0;
+    std::string str;
+    int port;
+    while(count > i)
+    {
+        int index = count - 1;
+        str = s[index].ft_get(s[index].s_content, "host");
+        port = s[index].get(s[index].s_content, "listen");
+        while(index > i)
+        {
+            index--;
+            if(str == s[index].ft_get(s[index].s_content, "host"))
+            {
+                std::cout << "duplication in host directive server :" << count << std::endl;
+                exit(EXIT_FAILURE);
+            }
+            if(port == s[index].get(s[index].s_content, "listen"))
+            {
+                {
+                std::cout << "duplication in listen directive : "<< count << std::endl;
+                exit(EXIT_FAILURE);
+                }
+            }
+        }
+        count--;
     }
 }
 
