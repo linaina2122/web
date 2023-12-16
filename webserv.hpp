@@ -32,7 +32,17 @@ struct multiplexer{
     int max_socket;
     ssize_t bytes_send_to_client;
     ssize_t bytes_read_from_client;
+    int i;
 };
+
+struct clt_info{
+    int socket;
+    char recv[1024];
+    int bytes_recved;
+    socklen_t address_length;
+    struct sockaddr_storage address;
+};
+
 //parsing
 std::vector<std::string> read_from_file(const char *argv);
 int num_of_server(std::vector<std::string> str);

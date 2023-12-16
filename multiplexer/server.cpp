@@ -26,6 +26,7 @@ std::vector<int> socket_init(server *s, int count)
             exit(EXIT_FAILURE);
         }
         int s_fd = socket(results->ai_family, results->ai_socktype, results->ai_protocol);
+        // std::cout << s_fd << std::endl;
         if (s_fd < 0)
         {
             std::perror("socket");
@@ -76,8 +77,6 @@ void select_init(server *s, int count)
     while (1)
     {
         copy_set = m.read_set;
-
-        // int select(int nfds, fd_set *readfds, fd_set *writefds, fd_set *exceptfds, struct timeval *timeout);
         int result = select(m.max_socket + 1, &copy_set, NULL, NULL, NULL);
         if (result < 0)
         {
