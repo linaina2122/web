@@ -29,10 +29,9 @@ class server{
 };
 struct multiplexer{
     fd_set read_set;
-    int max_socket;
+    fd_set write_set;
     ssize_t bytes_send_to_client;
-    ssize_t bytes_read_from_client;
-    int i;
+    int max_socket;
 };
 
 struct clt_info{
@@ -62,8 +61,8 @@ void check_root(server *s, int count);
 void check_methode(server *s, int count);
 //multiplexer
 std::vector<int> socket_init(server *s, int count);
-void send_to_clt(int socket, multiplexer &m);
-void read_from_clt(int socket, multiplexer &m);
+void send_to_clt(multiplexer &m, clt_info &clt);
+void read_from_clt(int socket, clt_info &clt);
 fd_set add_socket(std::vector<int> arr, fd_set set);
 int find_max_socket(std::vector<int> arr);
 void select_init(server *s, int count);

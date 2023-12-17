@@ -26,7 +26,6 @@ std::vector<int> socket_init(server *s, int count)
             exit(EXIT_FAILURE);
         }
         int s_fd = socket(results->ai_family, results->ai_socktype, results->ai_protocol);
-        // std::cout << s_fd << std::endl;
         if (s_fd < 0)
         {
             std::perror("socket");
@@ -69,7 +68,10 @@ void select_init(server *s, int count)
 {
     std::vector<int> arr = socket_init(s, count);
     multiplexer m;
+    struct clt_info clt;
+    memset(&clt, 0, sizeof(clt_info));
     m.read_set = add_socket(arr, m.read_set);
+    m.write_set = add_socket(arr, m.write_set);
     check_socket(arr, m);
     m.max_socket = find_max_socket(arr);
     fd_set copy_set;
@@ -88,13 +90,12 @@ void select_init(server *s, int count)
         {
             if (FD_ISSET(arr[i], &m.read_set))
             {
-                read_from_clt(arr[i], m);
+                read_from_clt(arr[i], clt);
             }
             else
-                send_to_clt(arr[i], m);
+                send_to_clt(m, clt);
             i++;
         }
-         std::cout << m.max_socket << std::endl;
     }
         ft_close(arr);
 }
