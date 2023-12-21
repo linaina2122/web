@@ -11,6 +11,7 @@ fd_set add_socket(std::vector<int> arr, fd_set set)
     }
     return (set);
 }
+
 int find_max_socket(std::vector<int> arr)
 {
     std::vector<int>::iterator it = arr.begin();
@@ -31,11 +32,11 @@ void check_socket(std::vector<int> arr, multiplexer &m)
     std::vector<int>::iterator it = arr.begin();
     while(it != arr.end())
     {
-        if(!FD_ISSET(*it, &m.read_set))
+        if(!FD_ISSET(*it, &m.read_set) && !FD_ISSET(*it , &m.write_set))
         {
             std::cout << "socket not found\n";
             exit(EXIT_FAILURE);
-        }
+        } 
         it++;
     }
 }

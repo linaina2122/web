@@ -116,11 +116,11 @@ void check_directives(server *s, int count)
         std::multimap<std::string, std::string>::iterator it = s[index].s_content.begin();
         while(it != s[index].s_content.end())
         {
-            if(check_dup(s[index].s_content))
-            {
-                std::cout << "dup in server" << index << std::endl;
-                exit(EXIT_FAILURE);
-            }
+            // if(check_dup(s[index].s_content))
+            // {
+            //     std::cout << "dup in server" << index << std::endl;
+            //     exit(EXIT_FAILURE);
+            // }
             if(it->first == "host")
             {
                 if(check_host_directive(it->second))
@@ -167,33 +167,33 @@ void check_directives(server *s, int count)
     }
 }
 
-void check_dup(server *s, int count)
-{
-    int i = 0;
-    std::string str;
-    int port;
-    while(count > i)
-    {
-        int index = count - 1;
-        str = s[index].ft_get(s[index].s_content, "host");
-        port = s[index].get(s[index].s_content, "listen");
-        while(index > i)
-        {
-            index--;
-            if(str == s[index].ft_get(s[index].s_content, "host"))
-            {
-                std::cout << "duplication in host directive server :" << count << std::endl;
-                exit(EXIT_FAILURE);
-            }
-            if(port == s[index].get(s[index].s_content, "listen"))
-            {
-                {
-                std::cout << "duplication in listen directive : "<< count << std::endl;
-                exit(EXIT_FAILURE);
-                }
-            }
-        }
-        count--;
-    }
-}
+// void check_dup(server *s, int count)
+// {
+//     int i = 0;
+//     std::string str;
+//     int port;
+//     while(count > i)
+//     {
+//         int index = count - 1;
+//         str = s[index].ft_get(s[index].s_content, "host");
+//         port = s[index].get(s[index].s_content, "listen");
+//         while(index > i)
+//         {
+//             index--;
+//             if(str == s[index].ft_get(s[index].s_content, "host"))
+//             {
+//                 std::cout << "duplication in host directive server :" << count << std::endl;
+//                 exit(EXIT_FAILURE);
+//             }
+//             if(port == s[index].get(s[index].s_content, "listen"))
+//             {
+//                 {
+//                 std::cout << "duplication in listen directive : "<< count << std::endl;
+//                 exit(EXIT_FAILURE);
+//                 }
+//             }
+//         }
+//         count--;
+//     }
+// }
 

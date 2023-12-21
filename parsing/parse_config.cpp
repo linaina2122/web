@@ -169,14 +169,14 @@ int check_space(server s)
 
 server *parsing_functions(server *s, int count)
 {
-    s = pars_config(s, count);
+    // s = pars_config(s, count);
     s = location_bloc(s, count);
 
     // int index = 0;
     s = set_bloc(s, count);
     s = fill_default(s, count);
     check_directives(s, count);
-    check_dup(s, count);
+    // check_dup(s, count);
     check_root(s, count);
     // check_methode(s, count);
     // while (index < count)

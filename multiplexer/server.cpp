@@ -66,36 +66,61 @@ std::vector<int> socket_init(server *s, int count)
 
 void select_init(server *s, int count)
 {
-    std::vector<int> arr = socket_init(s, count);
+    struct sockaddr_storage clt_addr;
+    socklen_t size = sizeof(clt_addr);
+    clt_addr.ss_family = AF_INET;
+    std::vector<int> servers = socket_init(s, count);
+    std::vector<int> clients;
     multiplexer m;
     struct clt_info clt;
     memset(&clt, 0, sizeof(clt_info));
-    m.read_set = add_socket(arr, m.read_set);
-    m.write_set = add_socket(arr, m.write_set);
-    check_socket(arr, m);
-    m.max_socket = find_max_socket(arr);
+    m.read_set = add_socket(servers, m.read_set);
+    m.max_socket = find_max_socket(servers);
     fd_set copy_set;
+    fd_set write_copy_set;
     FD_ZERO(&copy_set);
+    FD_ZERO(&write_copy_set);
+
     while (1)
     {
+        std::vector<int>::iterator it = servers.begin();
         copy_set = m.read_set;
-        int result = select(m.max_socket + 1, &copy_set, NULL, NULL, NULL);
+        write_copy_set = m.write_set;
+        int result = select(m.max_socket + 1, &copy_set, &write_copy_set, NULL, NULL);
+        std::cout << result << std::endl;
         if (result < 0)
+            continue ;
+        int i = 1;
+        int flag = 0;
+        while(i <= m.max_socket)
         {
-            perror("select");
-            exit(EXIT_FAILURE);
-        }
-        int i = 0;
-        while (i <= m.max_socket)
-        {
-            if (FD_ISSET(arr[i], &m.read_set))
+            if(FD_ISSET(i, &m.read_set))
             {
-                read_from_clt(arr[i], clt);
+                while(it != servers.end())
+                {
+                    if(*it == i)
+                    {
+                        flag = 1;
+                        break;
+                    }
+                    it++;
+                }
+                if(flag)
+                {
+                    std::cout << "before accept" << std::endl;
+                    clt.socket = accept(i, reinterpret_cast<struct sockaddr*>(&clt_addr), &size);
+                    std::cout << "socket accepted successfuly\n";
+                    clients.push_back(clt.socket);
+                    FD_SET(clt.socket, &m.read_set);
+                }
+                else
+                    read_from_clt(clt, i);
             }
-            else
-                send_to_clt(m, clt);
+            else if(FD_ISSET(i, &m.write_set))
+                send_to_clt(m, clt.socket);
             i++;
         }
+        
     }
-        ft_close(arr);
+        // ft_close(arr);
 }

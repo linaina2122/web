@@ -61,13 +61,14 @@ void check_root(server *s, int count);
 void check_methode(server *s, int count);
 //multiplexer
 std::vector<int> socket_init(server *s, int count);
-void send_to_clt(multiplexer &m, clt_info &clt);
-void read_from_clt(int socket, clt_info &clt);
+void send_to_clt(multiplexer &m, int socket);
+void read_from_clt(clt_info &clt, int socket);
 fd_set add_socket(std::vector<int> arr, fd_set set);
 int find_max_socket(std::vector<int> arr);
 void select_init(server *s, int count);
 void check_socket(std::vector<int> arr, multiplexer &m);
 void ft_close(std::vector<int>arr);
+int is_connected(std::vector<int> arr, int socket);
 
 
 
